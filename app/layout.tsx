@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Quintessential } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const font = Quintessential({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: "400"
 });
 
 export const metadata: Metadata = {
@@ -25,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${font.className} antialiased`}
       >
-        {children}
+        <Header/>
+        <div className="relative z-30">{children}</div>
+        <Footer/>
       </body>
     </html>
   );
