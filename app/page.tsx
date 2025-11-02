@@ -221,24 +221,28 @@ export default function DepthScene2Layer() {
         <div className="flex flex-col gap-3 absolute text-center items-center">
           <p className="text-4xl">Letter from Secretary General</p>
           <p className="text-2xl text-[#755F37] w-[30%]">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero labore
-            vel quas consequuntur, eos minus provident adipisci quod maxime
-            dolor eaque aspernatur sed, exercitationem facere enim delectus?
-            Voluptatum, veritatis quasi.
+            Dear participants,
+The creation of a universe always begins with an idea. MFU is not merely a platform where fictional worlds collide — it is a journey built on imagination, courage, and belief. Every character, every decision, and every crisis represents the power of young minds to reshape worlds.
+<br />
             <br />
+This project was a long journey — from the pages of a dream to the edge of reality. It was built on sleepless nights, dedication, and faith. When I founded MFU, my goal was not only to create a conference, but a center where different universes and stories could intersect. Here, ideas merge, characters rewrite their destinies, and every universe finds its voice.
+<br />
             <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero labore
-            vel quas consequuntur, eos minus provident adipisci quod maxime
-            dolor eaque aspernatur sed, exercitationem facere enim delectus?
-            Voluptatum, veritatis quasi.
+MFU is not the echo of one world — it is the reflection of countless ones.
+The line between reality and fiction fades here, for we seek the meaning behind every story. We build universes — sometimes with a word, sometimes with a spark of hope.
+<br />
             <br />
+Everyone reading these words is now part of this story.
+We built this universe with our hearts, nurtured it with faith, and protect it with hope.
+<br />
             <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero labore
-            vel quas consequuntur, eos minus provident adipisci quod maxime
-            dolor eaque aspernatur sed, exercitationem facere enim delectus?
-            Voluptatum, veritatis quasi.
+And remember — whether you rise from the shadows or walk within the light...
+The good always win in every universe.
+<br />
             <br />
-            <br />
+Respectfully,
+Ebru Özçelik
+Founder and Secretary-General of the Model Fictional Universe (MFU)
           </p>
         </div>
       </div>
