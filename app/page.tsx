@@ -4,8 +4,45 @@ import { patternURL } from "@/lib/constant";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useEffect } from "react";
+import { TbPlus } from "react-icons/tb";
 
-export default function DepthScene2Layer() {
+const faq = [
+  {
+    "question": "Who can participate?",
+    "answer": "MFU is open to high school and university students passionate about storytelling, world-building, and creative dialogue."
+  },
+  {
+    "question": "What is the official language of MFU?",
+    "answer": "The official language of MFU is English. However, depending on the committee, bilingual or localized sessions may occur."
+  },
+  {
+    "question": "What is the dress code?",
+    "answer": "Participants are encouraged to follow a formal dress code. Light thematic accessories or subtle cosplay elements are allowed if appropriate for the committee."
+  },
+  {
+    "question": "What are the committees about?",
+    "answer": "Each committee represents a different fictional universe — from sci-fi to fantasy to modern storytelling."
+  },
+  {
+    "question": "Do I need prior MUN experience?",
+    "answer": "No! MFU focuses on creativity and storytelling — anyone passionate about fictional worlds is welcome."
+  },
+  {
+    "question": "How are characters assigned?",
+    "answer": "After registration, participants receive their character profiles and role documents including background and goals."
+  },
+  {
+    "question": "What makes MFU unique?",
+    "answer": "MFU blends storytelling and diplomacy — it’s not only about discussion, it’s about creation. Here, every word can shape an entire universe."
+  },
+  {
+    "question": "Will delegates receive a certificate?",
+    "answer": "Delegates must attend all sessions. A maximum of two absences is allowed — exceeding this limit means no certificate will be awarded."
+  }
+]
+
+
+export default function Page() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -39,7 +76,7 @@ export default function DepthScene2Layer() {
       style={{
         backgroundImage: patternURL,
       }}
-      className="bg-[#FAF4E6] pb-[15rem]"
+      className="bg-[#FAF4E6] pb-[15rem] overflow-x-hidden"
     >
       <motion.div
         className="relative w-screen h-screen overflow-hidden bg-gray-950 perspective-[1000px]"
@@ -81,10 +118,10 @@ export default function DepthScene2Layer() {
         </motion.div>
           */}
 
-        <div className="bg-linear-to-t from-[#FAF4E6]/20 to-transparent absolute left-0 bottom-0 z-50 w-full h-[30%]"></div>
+        <div className="bg-linear-to-t from-[#FAF4E6] to-transparent absolute left-0 bottom-0 z-50 w-full h-[50%]"></div>
       </motion.div>
 
-      <div className="mt-12 w-screen h-screen flex flex-col gap-3 justify-center items-center">
+      <div className="mt-12 w-screen h-screen flex flex-col gap-3 justify-center items-center max-md:px-12">
         <Image
           className="w-32 h-32"
           src="/assets/dragon.svg"
@@ -92,17 +129,17 @@ export default function DepthScene2Layer() {
           width={500}
           height={500}
         />
-        <p className="text-6xl text-[#264653]">
+        <p className="text-3xl text-center lg:text-6xl text-[#264653]">
           When facts are gone, the fiction goes on.
         </p>
       </div>
 
-      <div className="mt-12 w-screen h-screen flex flex-col justify-start items-center pt-[%50]">
-        <p className="text-4xl mb-3 text-amber-500">Introduce</p>
-        <h1 className="px-3 py-2 bg-amber-500 text-5xl">
+      <div className="mt-12 w-screen h-full min-h-screen flex flex-col justify-start items-center pt-[%50] relative">
+        <p className="text-2xl lg:text-4xl mb-3 text-amber-500">What Is</p>
+        <h1 className="px-3 py-2 bg-amber-500 text-3xl lg:text-5xl">
           Model Fictional Universe
         </h1>
-        <p className="w-[65%] mx-auto text-center text-3xl mt-5">
+        <p className="w-[90%] lg:w-[65%] mx-auto text-center text-lg lg:text-3xl mt-5">
           Model Fictional Universe (MFU) is a simulation conference where
           participants take on different characters within a multi-universe,
           story-driven environment. Each committee has its own universe, and
@@ -110,14 +147,22 @@ export default function DepthScene2Layer() {
           characters’ perspectives in an interactive setting. MFU is a unique
           platform that combines imagination with strategic thinking.
         </p>
+
+          <Image
+          alt=""
+          width={735}
+          height={435}
+          className="absolute -right-[25%] lg:right-0 max-md:-top-[22%] lg:bottom-0"
+          src="/assets/dragon_green.png"
+          />
       </div>
 
-      <div className="mt-12 w-screen h-screen flex flex-col justify-start items-center pt-[%50]">
-        <p className="text-4xl mb-3 text-amber-500">Vision of</p>
-        <h1 className="px-3 py-2 bg-amber-500 text-5xl">
+      <div className="mt-12 w-screen h-full min-h-screen flex flex-col justify-start items-center pt-[%50] relative">
+        <p className="text-2xl lg:text-4xl mb-3 text-amber-500">Vision of</p>
+        <h1 className="px-3 py-2 bg-amber-500 text-3xl lg:text-5xl">
           Model Fictional Universe
         </h1>
-        <p className="w-[65%] mx-auto text-center text-3xl mt-5">
+        <p className="w-[90%] lg:w-[65%] mx-auto text-center text-lg lg:text-3xl mt-5">
           Model Fictional Universe is an innovative platform that unites
           imagination with academic thought to inspire the next generation of
           leaders, thinkers, and storytellers. We believe that ideas have the
@@ -136,14 +181,21 @@ export default function DepthScene2Layer() {
           MFU aims to be a meeting point for young people who think beyond
           boundaries and shape the future with an interdisciplinary vision.
         </p>
+                  <Image
+          alt=""
+          width={735}
+          height={435}
+          className="absolute left-[-22%] top-[-50%] lg:top-0"
+          src="/assets/ship.png"
+          />
       </div>
 
-      <div className="mt-12 w-screen h-screen flex flex-col justify-start items-center pt-[%50]">
-        <p className="text-4xl mb-3 text-amber-500">Mision of</p>
-        <h1 className="px-3 py-2 bg-amber-500 text-5xl">
+      <div className="mt-12 w-screen h-full min-h-screen flex flex-col justify-start items-center pt-[%50] relative">
+        <p className="text-2xl lg:text-4xl mb-3 text-amber-500">Mision of</p>
+        <h1 className="px-3 py-2 bg-amber-500 text-3xl lg:text-5xl">
           Model Fictional Universe
         </h1>
-        <p className="w-[65%] mx-auto text-center text-3xl mt-5">
+        <p className="w-[90%] lg:w-[65%] mx-auto text-center text-lg lg:text-3xl mt-5">
           Model Fictional Universe provides a multidimensional learning
           environment where young people can develop their creativity, critical
           thinking, and communication skills. Our mission is to bring together
@@ -162,89 +214,87 @@ export default function DepthScene2Layer() {
           For us, MFU is more than an event — it is a movement where young
           people redefine the future.
         </p>
-      </div>
-
-      <div className="mt-12 w-screen h-screen flex flex-col justify-start items-center pt-[%50]">
-        <p className="text-4xl mb-3 text-amber-500">Team of</p>
-        <h1 className="px-3 py-2 bg-amber-500 text-5xl">
-          Model Fictional Universe
-        </h1>
-
-        <div className="grid grid-cols-4 gap-3 px-[15%] mt-12">
-          {[
-            {
-              name: "Ebru Özçelik",
-              role: "Founder and Secretary General",
-              image: "/assets/members/sg.png",
-            },
-            {
-              name: "Elif Enda Çelik",
-              role: "Director General",
-              image: "/assets/members/dg.png",
-            },
-            {
-              name: "Betül Yüksel",
-              role: "Deputy Secretary General",
-              image: "/assets/members/dsg.png",
-            },
-            {
-              name: "Nehir Coşkun",
-              role: "Deputy Director General",
-              image: "/assets/members/ddg.png",
-            },
-          ].map((member) => (
-            <div className="relative">
-              <Image
-                src={member.image}
-                alt=""
-                className=""
-                width={1500}
-                height={2000}
-              />
-              <div className="w-full absolute z-50 left-0 bottom-0 p-4 bg-linear-to-t from-black/60 to-transparent h-full flex flex-col justify-end items-start">
-                <p className="font-bold text-amber-500 text-2xl relative z-50">{member.name}</p>
-                                <p className="font-bold text-gray-300 relative z-50">{member.role}</p>
-
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="w-screen h-full min-h-screen flex justify-center items-center">
         <Image
-          src="/assets/parchment.png"
-          alt="Parchment"
-          width={1000}
-          height={1000}
-        />
-        <div className="flex flex-col gap-3 absolute text-center items-center">
-          <p className="text-4xl">Letter from Secretary General</p>
-          <p className="text-2xl text-[#755F37] w-[30%]">
-            Dear participants,
-The creation of a universe always begins with an idea. MFU is not merely a platform where fictional worlds collide — it is a journey built on imagination, courage, and belief. Every character, every decision, and every crisis represents the power of young minds to reshape worlds.
-<br />
-            <br />
-This project was a long journey — from the pages of a dream to the edge of reality. It was built on sleepless nights, dedication, and faith. When I founded MFU, my goal was not only to create a conference, but a center where different universes and stories could intersect. Here, ideas merge, characters rewrite their destinies, and every universe finds its voice.
-<br />
-            <br />
-MFU is not the echo of one world — it is the reflection of countless ones.
-The line between reality and fiction fades here, for we seek the meaning behind every story. We build universes — sometimes with a word, sometimes with a spark of hope.
-<br />
-            <br />
-Everyone reading these words is now part of this story.
-We built this universe with our hearts, nurtured it with faith, and protect it with hope.
-<br />
-            <br />
-And remember — whether you rise from the shadows or walk within the light...
-The good always win in every universe.
-<br />
-            <br />
-Respectfully,
-Ebru Özçelik
-Founder and Secretary-General of the Model Fictional Universe (MFU)
-          </p>
+          alt=""
+          width={735}
+          height={435}
+          className="absolute right-[-19%] -top-[35%] lg:-top-[44%] max-md:w-60 max-md:h-auto"
+          src="/assets/owl.png"
+          />
+      </div>
+
+      <div className="w-screen h-full min-h-screen flex max-md:flex-col justify-center items-center">
+        <div className="relative h-90 lg:h-160">
+          <Image
+          alt=""
+          width={735}
+          height={435}
+          className="top-[-5%] left-[-6%] absolute h-100 lg:h-180 z-50 min-w-80 lg:min-w-140"
+          src="/assets/frame.png"/>
+          <Image
+            src="/assets/letter_sg.png"
+            alt=""
+            className="h-full w-full z-30"
+            width={1500}
+            height={2000}
+          />
         </div>
+
+        <div className="relative w-[90%] lg:w-[50%] max-md:mt-32 flex justify-center items-center">
+          <Image
+            className="max-md:hidden w-full h-auto"
+            src="/assets/parchment.png"
+            alt="Parchment"
+            width={1000}
+            height={1000}
+          />
+          <div className="flex flex-col w-full gap-3 relative lg:absolute text-center items-center justify-start">
+            <p className="text-2xl">Letter from Founder & Secretary General</p>
+            <p className="text-xl text-[#755F37] w-[60%]">
+              Dear participants, The creation of a universe always begins with
+              an idea. MFU is not merely a platform where fictional worlds
+              collide — it is a journey built on imagination, courage, and
+              belief. Every character, every decision, and every crisis
+              represents the power of young minds to reshape worlds.
+              <br />
+              <br />
+              This project was a long journey — from the pages of a dream to the
+              edge of reality. It was built on sleepless nights, dedication, and
+              faith. When I founded MFU, my goal was not only to create a
+              conference, but a center where different universes and stories
+              could intersect. Here, ideas merge, characters rewrite their
+              destinies, and every universe finds its voice.
+              <br />
+              <br />
+              MFU is not the echo of one world — it is the reflection of
+              countless ones. The line between reality and fiction fades here,
+              for we seek the meaning behind every story. We build universes —
+              sometimes with a word, sometimes with a spark of hope.
+              <br />
+              <br />
+              Everyone reading these words is now part of this story. We built
+              this universe with our hearts, nurtured it with faith, and protect
+              it with hope.
+              <br />
+              <br />
+              And remember — whether you rise from the shadows or walk within
+              the light... The good always win in every universe.
+              <br />
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="faq" className="w-[90%] max-md:mx-auto lg:w-screen h-full min-h-screen mt-32 flex flex-col items-center gap-12">
+        {
+          faq.map(item => (
+
+        <div className="flex flex-col items-center lg:w-full">
+          <h1 className="text-xl lg:text-3xl text-[#BC9764] inline-flex gap-1 items-center font-bold text-center lg:mx-auto lg:w-min whitespace-nowrap"><TbPlus/> {item.question}</h1>
+          <p className="w-[70%] lg:w-[50%] text-md lg:text-xl mt-2 text-center mx-auto">{item.answer}</p>
+        </div>
+          ))
+        }
       </div>
     </main>
   );

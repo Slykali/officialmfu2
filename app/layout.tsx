@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Quintessential } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import Image from "next/image";
+import Link from "next/link";
 
 const font = Quintessential({
   subsets: ["latin"],
@@ -26,6 +28,10 @@ export default function RootLayout({
       >
         <Header/>
         <div className="relative z-30">{children}</div>
+        <Link href="/#faq" className="fixed bottom-5 right-5 z-50">
+                  <Image src="/assets/figure.png" className="size-42 drop-shadow-2xl drop-shadow-indigo-500/80" alt="logo" width={100} height={100}/>
+
+        </Link>
         <Footer/>
       </body>
     </html>
