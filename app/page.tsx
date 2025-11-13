@@ -3,8 +3,8 @@
 import { patternURL } from "@/lib/constant";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import Image from "next/image";
-import { useEffect } from "react";
-import { TbPlus } from "react-icons/tb";
+import { useEffect, useState } from "react";
+import { TbMinus, TbPlus } from "react-icons/tb";
 
 const faq = [
   {
@@ -46,6 +46,11 @@ export default function Page() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggleFAQ = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
   // mouse hareketini yakala
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -79,9 +84,17 @@ export default function Page() {
       className="bg-[#FAF4E6] pb-[15rem] overflow-x-hidden"
     >
       <motion.div
-        className="relative w-screen h-screen overflow-hidden bg-gray-950 perspective-[1000px]"
+        className="relative w-screen h-screen flex items-center justify-center overflow-hidden bg-gray-950 lg:perspective-[1000px]"
         style={{ rotateX, rotateY }}
       >
+                  <Image
+            className="w-full h-full z-30 object-cover lg:hidden absolute"
+            src="/assets/hero2.png"
+            alt="Parchment"
+            width={736}
+            height={1308}
+          />
+          <h1 className="lg:text-9xl text-5xl z-40 relative text-white text-center">The castle whispers <br/> your name…</h1>
         {/* BACKGROUND */}
         <motion.img
           src="/assets/background.png"
@@ -250,7 +263,7 @@ export default function Page() {
           />
           <div className="flex flex-col w-full gap-3 relative lg:absolute text-center items-center justify-start">
             <p className="text-2xl">Letter from Founder & Secretary General</p>
-            <p className="text-xl text-[#755F37] w-[60%]">
+            <p className="text-xl text-[#755F37] w-[90%] lg:w-[60%]">
               Dear participants, The creation of a universe always begins with
               an idea. MFU is not merely a platform where fictional worlds
               collide — it is a journey built on imagination, courage, and
@@ -286,15 +299,36 @@ export default function Page() {
       </div>
 
       <div id="faq" className="w-[90%] max-md:mx-auto lg:w-screen h-full min-h-screen mt-32 flex flex-col items-center gap-12">
-        {
-          faq.map(item => (
+        <Image
+        src="/assets/logo.png"
+        width={1000}
+        height={1000}
+        className="size-120"
+        />
+    {faq.map((item, index) => (
+        <div
+          key={index}
+          className="flex flex-col items-center lg:w-full cursor-pointer transition-all duration-300"
+        >
+          <h1
+            onClick={() => toggleFAQ(index)}
+            className="text-xl lg:text-3xl text-[#BC9764] inline-flex gap-2 items-center font-bold text-center lg:mx-auto lg:w-min whitespace-nowrap select-none"
+          >
+            {openIndex === index ? <TbMinus /> : <TbPlus />} {item.question}
+          </h1>
 
-        <div className="flex flex-col items-center lg:w-full">
-          <h1 className="text-xl lg:text-3xl text-[#BC9764] inline-flex gap-1 items-center font-bold text-center lg:mx-auto lg:w-min whitespace-nowrap"><TbPlus/> {item.question}</h1>
-          <p className="w-[70%] lg:w-[50%] text-md lg:text-xl mt-2 text-center mx-auto">{item.answer}</p>
+          {/* Cevap kısmı sadece açık olan indexte görünür */}
+          <p
+            className={`w-[70%] lg:w-[50%] text-md lg:text-xl mt-2 text-center mx-auto overflow-hidden transition-all duration-500 ${
+              openIndex === index
+                ? "max-h-[500px] opacity-100"
+                : "max-h-0 opacity-0"
+            }`}
+          >
+            {item.answer}
+          </p>
         </div>
-          ))
-        }
+      ))}
       </div>
     </main>
   );
