@@ -231,7 +231,7 @@ export default function Page() {
           alt=""
           width={735}
           height={435}
-          className="absolute right-[-19%] -top-[35%] lg:-top-[44%] max-md:w-60 max-md:h-auto"
+          className="absolute right-[-19%] -top-[15%] lg:-top-[44%] max-md:w-40 max-md:h-auto "
           src="/assets/owl.png"
           />
       </div>
