@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Image from "next/image";
 import Link from "next/link";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const font = Quintessential({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
 
         </Link>
         <Footer/>
+              <GoogleAnalytics gaId="G-7JT7T8CWSF" />
       </body>
     </html>
   );
