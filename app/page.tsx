@@ -41,7 +41,6 @@ const faq = [
   }
 ]
 
-
 export default function Page() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -51,7 +50,7 @@ export default function Page() {
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-  // mouse hareketini yakala
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const { innerWidth, innerHeight } = window;
@@ -64,15 +63,12 @@ export default function Page() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [x, y]);
 
-  // Arka plan biraz yavaş hareket eder
   const bgX = useTransform(x, [-0.5, 0.5], [30, -30]);
   const bgY = useTransform(y, [-0.5, 0.5], [30, -30]);
 
-  // Ön plan daha hızlı hareket eder
   const fgX = useTransform(x, [-0.5, 0.5], [80, -80]);
   const fgY = useTransform(y, [-0.5, 0.5], [80, -80]);
 
-  // Kamerayı hafif döndür (perspektif efekti)
   const rotateX = useTransform(y, [-0.5, 0.5], [8, -8]);
   const rotateY = useTransform(x, [-0.5, 0.5], [-8, 8]);
 
