@@ -9,6 +9,7 @@ const APPLICATION_FORMS = [
     url: "https://docs.google.com/forms/d/e/1FAIpQLSfodYw5w63wLgbGZ-kI9kbwIA-IlDMB5hByGrjr9VZtQ5WC9g/viewform?usp=publish-editor",
     label: "Press",
   },
+  { url: "https://forms.gle/CLsmJz5XEr6Z2pzV7", label: "Administrative Staff" },
 ] as const;
 
 const PRICING = [
@@ -16,6 +17,7 @@ const PRICING = [
   { amount: "3.000 TL", label: "Delegates using accommodation" },
   { amount: "1.500 TL", label: "Organization members" },
   { amount: "1.500 TL", label: "Chair Board" },
+  { amount: "1.500 TL", label: "Administrative Staff" },
 ] as const;
 
 export default function Page() {
