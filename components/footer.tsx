@@ -1,5 +1,4 @@
-import { darkPatternURL, patternURL } from "@/lib/constant";
-import Image from "next/image";
+import { darkPatternURL } from "@/lib/constant";
 import Link from "next/link";
 
 export default function Footer() {
