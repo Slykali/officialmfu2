@@ -13,7 +13,7 @@ const APPLICATION_FORMS = [
 ] as const;
 
 const PRICING = [
-  { amount: "2.200 TL", label: "Delegate" },
+  { amount: "1.900 TL", label: "Delegate" },
   { amount: "3.000 TL", label: "Delegates using accommodation" },
   { amount: "1.500 TL", label: "Organization members" },
   { amount: "1.500 TL", label: "Chair Board" },
