@@ -113,6 +113,17 @@ namespace FRC6874
             bannerLength = seconds;
         }
 
+        /// <summary>
+        /// Scales everything drawn next around <paramref name="pivot"/>, given in virtual-canvas units.
+        /// (GUIUtility.ScaleAroundPivot expects screen pixels and pre-multiplies, which drifts under
+        /// the canvas scale whenever the screen is not exactly 1080 px tall.)
+        /// </summary>
+        static void ScaleAround(Vector2 scale, Vector2 pivot)
+        {
+            GUI.matrix *= Matrix4x4.TRS(pivot, Quaternion.identity, new Vector3(scale.x, scale.y, 1f)) *
+                          Matrix4x4.TRS(-pivot, Quaternion.identity, Vector3.one);
+        }
+
         /// <summary>m:ss, rounding up so a 15 s period reads 0:15 → 0:01 → 0:00.</summary>
         public static string FormatClock(float seconds)
         {
@@ -434,7 +445,7 @@ namespace FRC6874
 
             Rect clockRect = new Rect(center.x, center.y + 36f, centerW, 74f);
             Matrix4x4 m = GUI.matrix;
-            if (pulse > 0f) GUIUtility.ScaleAroundPivot(Vector2.one * (1f + 0.12f * pulse), clockRect.center);
+            if (pulse > 0f) ScaleAround(Vector2.one * (1f + 0.12f * pulse), clockRect.center);
             s.Text(clockRect, clock, s.Font(clockSize), clockColor, 2.5f);
             GUI.matrix = m;
 
@@ -474,7 +485,7 @@ namespace FRC6874
             if (flash > 0f)
             {
                 Vector2 pivot = new Vector2(leftSide ? scoreRect.xMax - 30f : scoreRect.x + 30f, scoreRect.center.y);
-                GUIUtility.ScaleAroundPivot(Vector2.one * (1f + 0.18f * flash), pivot);
+                ScaleAround(Vector2.one * (1f + 0.18f * flash), pivot);
             }
             s.Text(scoreRect, total.ToString(), s.Font(66, true, scoreAnchor), HudSkin.TextColor, 3f);
             GUI.matrix = m;
@@ -645,7 +656,7 @@ namespace FRC6874
                 Rect r = new Rect(center.x - 160f, center.y - 28f, 320f, 56f);
 
                 Matrix4x4 m = GUI.matrix;
-                GUIUtility.ScaleAroundPivot(Vector2.one * pop, center);
+                ScaleAround(Vector2.one * pop, center);
                 Skin.Text(r, popup.Text, Skin.Font(popup.Big ? 40 : 34), HudSkin.WithAlpha(popup.Color, alpha), 2.5f);
                 GUI.matrix = m;
             }
@@ -693,7 +704,7 @@ namespace FRC6874
             s.Fill(new Rect(W * 0.5f - lineWidth, cy + 83f, lineWidth * 2f, 3f), HudSkin.WithAlpha(bannerColor, alpha));
 
             Matrix4x4 m = GUI.matrix;
-            GUIUtility.ScaleAroundPivot(Vector2.one * scale, new Vector2(W * 0.5f, cy - 12f));
+            ScaleAround(Vector2.one * scale, new Vector2(W * 0.5f, cy - 12f));
             int size = Skin.FitFontSize(bannerTitle, 100, W - 80f, 48);
             s.Text(new Rect(0f, cy - 76f, W, 120f), bannerTitle, s.Font(size), HudSkin.WithAlpha(HudSkin.TextColor, alpha), 4f);
             GUI.matrix = m;
@@ -714,7 +725,7 @@ namespace FRC6874
 
             s.Text(new Rect(0f, cy - 200f, W, 40f), "MATCH STARTS IN", s.Font(30), HudSkin.MutedText, 2f);
             Matrix4x4 m = GUI.matrix;
-            GUIUtility.ScaleAroundPivot(Vector2.one * scale, new Vector2(W * 0.5f, cy));
+            ScaleAround(Vector2.one * scale, new Vector2(W * 0.5f, cy));
             s.Text(new Rect(0f, cy - 140f, W, 280f), number.ToString(), s.Font(240), HudSkin.WithAlpha(HudSkin.Accent, alpha), 5f);
             GUI.matrix = m;
 

@@ -197,7 +197,8 @@ namespace FRC6874
         {
             orbitAngle = Mathf.Repeat(orbitAngle + dt * OrbitDegreesPerSecond, 360f);
             float a = orbitAngle * Mathf.Deg2Rad;
-            pos = new Vector3(Mathf.Cos(a) * 15f, 7f + Mathf.Sin(a * 2f) * 1.1f, Mathf.Sin(a) * 11f);
+            // Radii keep the orbit inside the venue's end boards, backdrops and video board.
+            pos = new Vector3(Mathf.Cos(a) * 12.5f, 7f + Mathf.Sin(a * 2f) * 1.1f, Mathf.Sin(a) * 10.5f);
             target = new Vector3(0f, 0.6f, 0f);
             fieldOfView = 50f;
             smooth = 0.25f;

@@ -9,10 +9,20 @@ namespace FRC6874
     /// primitives (so the shader always matches the active pipeline and is never stripped).
     /// Unlit/transparent materials use "Sprites/Default", which is always included in builds.
     /// Materials are cached, so ask for the same parameters as often as you like.
+    ///
+    /// Emission is a shader feature that player builds strip unless a material asset in the build
+    /// uses it, so glowing materials are cloned from <see cref="EmissiveTemplateResource"/> (a
+    /// Resources material the editor setup script generates). Without it, everything still works
+    /// in the editor and builds simply lose the glow.
     /// </summary>
     public static class MaterialFactory
     {
+        /// <summary>Resources path of the emissive template material created by the editor setup.</summary>
+        public const string EmissiveTemplateResource = "FRC6874_EmissiveTemplate";
+
         static Material litTemplate;
+        static Material emissiveTemplate;
+        static bool emissiveTemplateLoaded;
         static Shader unlitShader;
         static readonly Dictionary<string, Material> cache = new Dictionary<string, Material>();
 
@@ -36,7 +46,7 @@ namespace FRC6874
             string key = $"emis|{ColorKey(color)}|{intensity:F2}";
             if (cache.TryGetValue(key, out Material cached) && cached != null) return cached;
 
-            var material = new Material(LitTemplate) { name = key, color = color };
+            var material = new Material(EmissiveTemplate) { name = key, color = color };
             SetEmission(material, color * intensity);
             cache[key] = material;
             return material;
@@ -56,12 +66,16 @@ namespace FRC6874
             return material;
         }
 
-        /// <summary>Creates an uncached lit material you can animate (e.g. LED color changes).</summary>
+        /// <summary>
+        /// Creates an uncached lit material you can animate (e.g. LED color changes). It starts with
+        /// no glow; call <see cref="SetEmission"/> to light it up.
+        /// </summary>
         public static Material NewLitInstance(Color color, float smoothness = 0.3f)
         {
-            var material = new Material(LitTemplate) { color = color };
+            var material = new Material(EmissiveTemplate) { color = color };
             SetFloatIfPresent(material, "_Glossiness", smoothness);
             SetFloatIfPresent(material, "_Smoothness", smoothness);
+            if (material.HasProperty("_EmissionColor")) material.SetColor("_EmissionColor", Color.black);
             return material;
         }
 
@@ -106,6 +120,21 @@ namespace FRC6874
                 litTemplate = new Material(probe.GetComponent<Renderer>().sharedMaterial) { name = "FRC6874 Lit Template" };
                 Object.Destroy(probe);
                 return litTemplate;
+            }
+        }
+
+        /// <summary>The generated emissive material if present and made for the active pipeline, else the lit template.</summary>
+        static Material EmissiveTemplate
+        {
+            get
+            {
+                if (!emissiveTemplateLoaded)
+                {
+                    emissiveTemplateLoaded = true;
+                    Material asset = Resources.Load<Material>(EmissiveTemplateResource);
+                    if (asset != null && asset.shader == LitTemplate.shader) emissiveTemplate = asset;
+                }
+                return emissiveTemplate != null ? emissiveTemplate : LitTemplate;
             }
         }
 

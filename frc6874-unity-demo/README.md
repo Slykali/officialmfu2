@@ -9,9 +9,10 @@ An FRC-style 3v3 robot game made as a demo for **FRC Team 6874**. You drive robo
 1. Install **Unity 2022.3 LTS** or **Unity 6** (any 6000.x) through Unity Hub. Built-in render pipeline and URP both work.
 2. Unity Hub → **Add** → **Add project from disk** → choose this `frc6874-unity-demo` folder. If Hub says the editor version (2022.3.45f1) isn't installed, pick any 2022.3+ version you have.
 3. On the first open, Unity may ask to **enable the new Input System backends** and restart. Click **Yes**. (Clicking No also works: the game then falls back to the old Input Manager, with full keyboard/mouse support and basic gamepad buttons.)
-4. The project creates and opens `Assets/FRC6874/Scenes/FRC6874_Demo.unity` by itself. Press **Play**.
+4. The project creates and opens `Assets/FRC6874/Scenes/FRC6874_Demo.unity` by itself. It also creates a small material in `Assets/FRC6874/Resources/` that keeps the glow effects in builds. Press **Play**.
    - If the scene isn't open, use the menu **FRC 6874 → Play Demo**.
    - Pressing Play in any empty scene also starts the game.
+   - If you switch render pipelines (for example to URP), run **FRC 6874 → Rebuild Demo Scene** once.
 
 The whole game is generated from C# at runtime: field, robots, materials, UI and sound effects. The repo has no art assets or prefabs to break.
 
@@ -34,6 +35,14 @@ The whole game is generated from C# at runtime: field, robots, materials, UI and
 
 The hub rolls scored balls back onto the field, so balls keep circulating.
 
+**Modes**
+- **Main menu:** a full AI match plays in the background.
+- **Play Match:** pick red or blue. You drive 6874 in the middle start slot.
+- **Practice:** free play with no clock.
+  - Press **R** to reset the field.
+  - Toggle the AI robots from the practice bar or the pause menu.
+  - Press **Climb** again to come back down.
+
 ## Controls
 
 | Action | Keyboard / mouse | Gamepad |
@@ -51,7 +60,9 @@ The hub rolls scored balls back onto the field, so balls keep circulating.
 | Confirm | Enter | A |
 | Help overlay | H or F1 | – |
 
-With auto-aim on, holding Shoot turns the robot toward the hub and fires once it's lined up. With auto-aim off, you aim yourself; the shooter still sets its power from the distance.
+With auto-aim on, holding Shoot turns the robot toward the hub and fires once it's lined up. With auto-aim off, you aim yourself; the shooter still sets its power from the distance. The HUD shows when you're in range (1.4–8 m from the hub).
+
+The gamepad column assumes the new Input System. On the old Input Manager, the gamepad works like this: left stick to drive, LB/RB to turn, A to intake, X to shoot, Y to climb.
 
 Camera modes: **Driver Station** (default: the view from behind your alliance wall, with true field-centric driving), **Chase**, and **Broadcast**.
 
@@ -83,4 +94,9 @@ Assets/FRC6874/
 
 ## Notes
 
-This project was written and compile-checked without a Unity editor. The scripts compile against the UnityEngine 2021.3 reference assemblies, but nobody has playtested it yet. Expect some tuning on first run (robot speed, shooter spread, AI behavior); all of it lives in `GameConfig.cs` or at the top of the relevant script.
+This project was written without a Unity editor:
+- The scripts compile with no errors or warnings against the UnityEngine 2021.3 reference assemblies.
+- The code was reviewed for Unity runtime pitfalls.
+- The shot math and AI behavior were checked in offline simulations.
+
+Nobody has playtested it in Unity yet, so expect some tuning on the first run: robot speed, shooter spread, AI behavior. The values are in `GameConfig.cs` and `Scripts/Robot/RobotTuning.cs`.

@@ -243,9 +243,10 @@ namespace FRC6874
             Transform group = FieldKit.Group("Video Boards", venue);
             Material steel = MaterialFactory.Lit(new Color(0.2f, 0.21f, 0.23f), 0.4f, 0.2f);
 
-            // Main board above the +Z stands.
-            float boardZ = Arena.HalfWidth + 4.2f;
-            float boardY = 6.0f, boardH = 3.4f;
+            // Main board above the back rows of the +Z stands: behind the broadcast camera and the
+            // menu orbit, high enough to clear the crowd in the top rows.
+            float boardZ = Arena.HalfWidth + 9.6f;
+            float boardY = 7.0f, boardH = 3.4f;
             FieldScoreboard.Create("Main Video Board", group, new Vector3(0f, boardY, boardZ), Vector3.back, 9f, boardH);
             FieldKit.Box("Board Truss", group, new Vector3(0f, TrussHeight, boardZ + 0.2f), new Vector3(10f, 0.3f, 0.3f), steel,
                 shadows: false);

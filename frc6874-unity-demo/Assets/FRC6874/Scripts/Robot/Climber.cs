@@ -17,14 +17,24 @@ namespace FRC6874
     }
 
     /// <summary>
-    /// Endgame climber: extends a telescoping arm, then lifts the robot <see cref="GameConfig.ClimbHeight"/>
-    /// over the rest of <see cref="GameConfig.ClimbDuration"/>. The body is kinematic while on the tower.
+    /// Endgame climber: while the telescoping arm extends, the robot glides back against its tower
+    /// (rear mast under the upper rung, facing downfield), then it lifts itself
+    /// <see cref="GameConfig.ClimbHeight"/> over the rest of <see cref="GameConfig.ClimbDuration"/>.
+    /// The body is kinematic while on the tower.
     /// The climb pauses while robots are disabled (like a real disabled robot).
     /// </summary>
     public sealed class Climber
     {
+        /// <summary>Distance of the tower's upper rung from the alliance wall (see ClimbTower).</summary>
+        const float UpperRungDepth = 0.16f;
+        /// <summary>Distance from the robot center back to the climber mast (see RobotVisuals).</summary>
+        const float MastSetback = 0.355f;
+
         readonly Robot robot;
+        Vector3 startPosition;
+        Quaternion startRotation;
         Vector3 basePosition;
+        Quaternion hangRotation;
         float timer;
         float lowerStartExtension;
 
@@ -50,8 +60,19 @@ namespace FRC6874
         public void Begin()
         {
             if (State != ClimbState.Stowed) return;
-            basePosition = robot.Body.position;
-            basePosition.y = 0f;
+            startPosition = robot.Body.position;
+            startPosition.y = 0f;
+            startRotation = robot.Body.rotation;
+
+            // Hang spot: mast under the upper rung, robot square to the wall, same lane as now.
+            Alliance alliance = robot.Alliance;
+            Bounds zone = Arena.ClimbZone(alliance);
+            float halfWidth = GameConfig.RobotWidth * 0.5f;
+            float z = Mathf.Clamp(startPosition.z, zone.min.z + halfWidth, zone.max.z - halfWidth);
+            basePosition = new Vector3(Arena.WallX(alliance), 0f, z) +
+                           Arena.AllianceForward(alliance) * (UpperRungDepth + MastSetback);
+            hangRotation = Quaternion.Euler(0f, Arena.AllianceForwardYaw(alliance), 0f);
+
             robot.SetBodyKinematic(true);
             State = ClimbState.Extending;
             timer = 0f;
@@ -75,13 +96,18 @@ namespace FRC6874
             switch (State)
             {
                 case ClimbState.Extending:
-                    ArmExtension = RobotTuning.ClimbArmReach * Smooth(timer / ExtendTime);
+                {
+                    float u = Smooth(timer / ExtendTime);
+                    ArmExtension = RobotTuning.ClimbArmReach * u;
+                    robot.Body.MovePosition(Vector3.Lerp(startPosition, basePosition, u));
+                    robot.Body.MoveRotation(Quaternion.Slerp(startRotation, hangRotation, u));
                     if (timer >= ExtendTime)
                     {
                         State = ClimbState.Lifting;
                         timer = 0f;
                     }
                     break;
+                }
 
                 case ClimbState.Lifting:
                 {

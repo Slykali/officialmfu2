@@ -209,10 +209,14 @@ namespace FRC6874
                 Body.SetVelocity(new Vector3(v.x * (1f - k), v.y, v.z * (1f - k)));
             }
 
-            // Safety net: a ball that escaped the field comes back near where it left.
-            if (p.y < -2f || !Arena.IsInsideField(p, -1.0f))
+            // Safety net: a ball that got past a wall's outer face (or fell through the carpet)
+            // comes back onto the field near where it left.
+            if (p.y < -0.5f || !Arena.IsInsideField(p, -0.15f))
             {
-                transform.position = Arena.ClampToField(p, 0.5f) + Vector3.up * 0.5f;
+                Vector3 back = Arena.ClampToField(p, 0.5f);
+                back.y = Mathf.Max(p.y, 0f) + 0.5f;
+                Body.position = back;
+                transform.position = back;
                 Body.SetVelocity(Vector3.zero);
                 if (State == PieceState.InFlight)
                 {

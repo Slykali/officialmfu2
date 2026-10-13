@@ -168,6 +168,9 @@ namespace FRC6874
             if (!active && MatchState.Phase != MatchPhase.Practice) return;
             AIRobotsActive = active;
 
+            // Robots reappear on their start spots; move the player home first if parked on one.
+            if (active) ResetPlayerIfOnStartSpot();
+
             foreach (RobotSlot slot in slots)
             {
                 if (slot.IsPlayer || slot.Robot == null) continue;
@@ -349,6 +352,24 @@ namespace FRC6874
                 ResetRobot(slot);
             }
             Physics.SyncTransforms();
+        }
+
+        void ResetPlayerIfOnStartSpot()
+        {
+            RobotSlot player = slots.Find(s => s.IsPlayer && s.Robot != null);
+            if (player == null) return;
+            Vector3 p = player.Robot.transform.position;
+            foreach (RobotSlot slot in slots)
+            {
+                if (slot.IsPlayer) continue;
+                Vector3 d = Arena.StartPosition(slot.Alliance, slot.Slot) - p;
+                d.y = 0f;
+                if (d.magnitude < 1.3f)
+                {
+                    ResetRobot(player);
+                    return;
+                }
+            }
         }
 
         static void ResetRobot(RobotSlot slot)
