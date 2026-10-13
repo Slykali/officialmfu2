@@ -7,7 +7,6 @@ namespace FRC6874
     /// The balls carry the Rigidbody, so this static trigger receives the callbacks. OnTriggerStay
     /// is a backstop for a ball that comes to rest inside the funnel without an enter event.
     /// </summary>
-    [RequireComponent(typeof(Collider))]
     public class HubIntake : MonoBehaviour
     {
         /// <summary>The hub that owns this trigger.</summary>

@@ -62,8 +62,9 @@ namespace FRC6874
             for (int side = -1; side <= 1; side += 2)
             {
                 float x = side * halfSpan;
-                FieldKit.Box("Upright", t, new Vector3(x, TowerHeight * 0.5f, uprightZ),
+                GameObject upright = FieldKit.Box("Upright", t, new Vector3(x, TowerHeight * 0.5f, uprightZ),
                     new Vector3(UprightSize, TowerHeight, UprightSize), allianceMat, collider: true);
+                PhysicsCompat.SetSurface(upright.GetComponent<Collider>(), FieldKit.WallBounce, FieldKit.WallFriction);
                 FieldKit.Box("Foot", t, new Vector3(x, 0.01f, uprightZ + 0.02f), new Vector3(0.22f, 0.02f, 0.2f),
                     FieldKit.DarkAluminum, shadows: false);
                 FieldKit.Box("Brace", t, new Vector3(x, TowerHeight * 0.5f, 0.01f), new Vector3(0.04f, TowerHeight, 0.02f),

@@ -169,15 +169,20 @@ namespace FRC6874
         {
             if (ignoredColliders != null)
                 foreach (Collider c in ignoredColliders)
-                    if (c != null && Collider != null) Physics.IgnoreCollision(Collider, c, false);
+                    if (CanIgnore(c)) Physics.IgnoreCollision(Collider, c, false);
             ignoredColliders = colliders;
             if (ignoredColliders != null)
             {
                 foreach (Collider c in ignoredColliders)
-                    if (c != null && Collider != null) Physics.IgnoreCollision(Collider, c, true);
+                    if (CanIgnore(c)) Physics.IgnoreCollision(Collider, c, true);
                 restoreCollisionTime = Time.time + 0.35f;
             }
         }
+
+        /// <summary>Physics.IgnoreCollision logs an error unless both colliders are active and enabled.</summary>
+        bool CanIgnore(Collider other) =>
+            other != null && Collider != null && other.enabled && Collider.enabled &&
+            other.gameObject.activeInHierarchy && gameObject.activeInHierarchy;
 
         void FixedUpdate()
         {
